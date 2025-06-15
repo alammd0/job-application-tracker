@@ -83,7 +83,7 @@ const login = async (req, res) => {
   try {
     const parsed = loginSchema.safeParse(req.body);
 
-    // console.log("Zod - ", parsed);
+    console.log("Zod - ", parsed);
 
     if (!parsed.success) {
       return res.status(404).json({
@@ -108,6 +108,8 @@ const login = async (req, res) => {
         message: "User Not Found, Please Signup",
       });
     }
+
+    console.log("user exits", existingUser);
 
     // here compare password
     const comparePassword = await bcrypt.compare(
