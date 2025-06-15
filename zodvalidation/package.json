@@ -1,0 +1,25 @@
+{
+  "name": "@mkadevs/zodvalidation",
+  "version": "1.0.5",
+  "description": "Zod schema validations",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "alam_md01",
+  "license": "ISC",
+  "type": "commonjs",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "zod": "^3.25.64"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
+
