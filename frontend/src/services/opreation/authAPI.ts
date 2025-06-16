@@ -10,7 +10,6 @@ interface SignupParam {
   name: string;
   email: string;
   password: string;
-  navigate: (path: string) => void;
 }
 
 interface LoginParam {
@@ -20,7 +19,7 @@ interface LoginParam {
 }
 
 // ------------------ SIGNUP ------------------
-export const signup = ({ name, email, password, navigate }: SignupParam) => {
+export const signup = ({ name, email, password }: SignupParam) => {
   return async (dispatch: AppDispatch) => {
     const toastId = toast.loading("Please wait...");
     dispatch(setLoading(true));
@@ -40,12 +39,12 @@ export const signup = ({ name, email, password, navigate }: SignupParam) => {
       }
 
       dispatch(setUser(response.data.data));
-
-      toast.success("Signup successful toastId" , {toastId});
-      navigate("/login");
+      toast.dismiss(toastId)
+      toast.success("Signup successful toastId");
     } catch (error: any) {
       console.error("Signup Error:", error?.message || error);
-      toast.error("Signup failed", { toastId });
+      toast.dismiss(toastId);
+      toast.error("Signup failed");
     } finally {
       dispatch(setLoading(false));
     }
@@ -81,12 +80,13 @@ export const login = ({ email, password, navigate }: LoginParam) => {
 
       // Optional: Save to localStorage
       localStorage.setItem("token", token);
-
-      toast.success("Login successful", { toastId });
+      toast.dismiss(toastId);
+      toast.success("Login successful");
       navigate("/home");
     } catch (error: any) {
       console.error("Login Error:", error?.message || error);
-      toast.error("Login failed", { toastId });
+      toast.dismiss(toastId);
+      toast.error("Login failed");
     } finally {
       dispatch(setLoading(false));
     }
@@ -119,12 +119,14 @@ export const getuser = () => {
       }
 
       dispatch(setUser(response.data));
-      toast.success("User data fetched", { toastId });
-
+      toast.dismiss(toastId);
+      toast.success("User data fetched");
       return response.data;
+
     } catch (error: any) {
       console.error("Get User Error:", error?.message || error);
-      toast.error("Failed to get user", { toastId });
+      toast.dismiss(toastId);
+      toast.error("Failed to get user");
     } finally {
       dispatch(setLoading(false));
     }

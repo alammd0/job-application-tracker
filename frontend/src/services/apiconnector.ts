@@ -2,8 +2,7 @@ import axios from "axios";
 import { BACKEND_URL } from "./backendURl";
 
 export const instance = axios.create({
-  baseURL: `${BACKEND_URL}/api/v1`,
-  timeout: 5000,
+  baseURL: `${BACKEND_URL}/api/v1`
 });
 
 instance.interceptors.request.use((config) => {

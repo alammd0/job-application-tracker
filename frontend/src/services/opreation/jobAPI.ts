@@ -25,7 +25,6 @@ interface CreateJobParam {
 }
 
 export const createjob = ({ company, status, role, notes }: CreateJobParam) => {
-
   return async (dispatch: AppDispatch) => {
     const toastId = toast.loading("Creating job...");
     dispatch(setLoading(true));
@@ -52,11 +51,9 @@ export const createjob = ({ company, status, role, notes }: CreateJobParam) => {
       dispatch(addJob(response.data.data));
       toast.dismiss(toastId);
       toast.success("Job Created Successfully");
-
-
     } catch (error: any) {
       toast.error(error?.message || "Failed to create job");
-      toast.dismiss(toastId)
+      toast.dismiss(toastId);
     } finally {
       dispatch(setLoading(false));
     }
@@ -97,7 +94,7 @@ export const updatejob = ({
         },
       });
       dispatch(updatejob(response.data.data));
-      toast.dismiss(toastId)
+      toast.dismiss(toastId);
       toast.success("Job Updated Successfully");
     } catch (error: any) {
       toast.error(error?.message || "Failed to update job", { toastId });
@@ -122,7 +119,6 @@ export const getAllJobs = () => {
 
       dispatch(setJobs(response.data.data));
       return response.data || [];
-
     } catch (error: any) {
       toast.error("Failed to fetch jobs");
       return [];
@@ -144,7 +140,7 @@ export const getJobDetails = (jobId: string) => {
           Authorization: `Bearer ${getToken()}`,
         },
       });
-      
+
       dispatch(setSelectedJob(response.data.data));
       return response.data || null;
     } catch (error: any) {
@@ -171,14 +167,14 @@ export const deleteJob = (jobId: string) => {
         },
       });
       dispatch(deleteJob(response.data.data));
-      toast.dismiss(toastId)
+      toast.dismiss(toastId);
       toast.success("Job Deleted Successfully");
-
     } catch (error: any) {
       toast.error("Failed to delete job");
-      toast.dismiss(toastId)
+      toast.dismiss(toastId);
     } finally {
       dispatch(setLoading(false));
     }
   };
 };
+

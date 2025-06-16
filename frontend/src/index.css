@@ -1,2 +1,14 @@
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lobster&family=Pacifico&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Lobster", "sans-serif"
+}
+
+html, body{
+ margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-x: hidden;
+}
