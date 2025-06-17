@@ -163,7 +163,7 @@ export const deleteuser = ({ token, navigate}: deleteProps) => {
         },
       });
 
-      console.log("Delete user - ", response);
+      // console.log("Delete user - ", response);
 
       if (!response) {
         throw new Error("User deletion failed");
