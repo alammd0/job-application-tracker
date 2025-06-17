@@ -9,18 +9,20 @@ import { CreateJob } from "./page/CreateJob";
 import { ViewJobs } from "./page/ViewJob";
 import { Profile } from "./page/Profile";
 import { HomPage } from "./page/Home";
+import { JobDetails } from "./page/JobDetails";
 
 function App() {
   return (
     <div className="bg-[#14181B] min-h-screen text-white overflow-x-hidden">
       <NavBar />
 
-      <main className="px-4 py-6">
+      <main>
         <Routes>
           <Route path="/" element={<IntroductionPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element = {<HomPage /> } />
+          <Route path="/home/job-details/:id" element = {<JobDetails />} />
 
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route path="create-job" element={< CreateJob />} />

@@ -69,7 +69,7 @@ interface CloseModal {
   onclose: () => void;
 }
 
-export default function ProfileModal({ onclose }: CloseModal) {
+export default function MenuModal({ onclose }: CloseModal) {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -99,7 +99,7 @@ export default function ProfileModal({ onclose }: CloseModal) {
           <Box sx={style} onClick={(e) => e.stopPropagation()}>
             <div className="flex flex-col gap-6 items-start">
               <button className="text-xl font-semibold capitalize font-mono hover:bg-[#272727] hover:text-white px-3 py-2 rounded-md transition-all duration-100">
-                <Link to="/dashboard/create-job">Create Project</Link>
+                <Link to="/dashboard/create-job">Add Project</Link>
               </button>
               <button className="text-xl font-semibold capitalize font-mono hover:bg-[#272727] hover:text-white px-3 py-2 rounded-md transition-all duration-100">
                 <Link to="/dashboard/view-jobs">View Your Jobs</Link>

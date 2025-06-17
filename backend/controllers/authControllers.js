@@ -41,7 +41,7 @@ const signup = async (req, res) => {
 
     // hashed The password
     const hashedPassword = await bcrypt.hash(password, 10);
-    // console.log("Hased password...", hashedPassword);
+
 
     // create user
     const newUser = await prisma.user.create({
@@ -83,8 +83,6 @@ const login = async (req, res) => {
   try {
     const parsed = loginSchema.safeParse(req.body);
 
-    // console.log("Zod - ", parsed);
-
     if (!parsed.success) {
       return res.status(404).json({
         success: false,
@@ -109,7 +107,6 @@ const login = async (req, res) => {
       });
     }
 
-    // console.log("user exits", existingUser);
 
     // here compare password
     const comparePassword = await bcrypt.compare(
@@ -174,7 +171,6 @@ const login = async (req, res) => {
 const getuser = async (req, res) => {
   try {
     const userId = req.user.id;
-    // console.log(userId);
 
     if (!userId) {
       return res.status(401).json({
@@ -220,7 +216,6 @@ const getuser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const userId = req.user.id;
-    // console.log("user id inside delete controllers - ", userId);
 
     if (!userId) {
       return res.status(401).json({
@@ -242,8 +237,6 @@ const deleteUser = async (req, res) => {
         id: userId,
       },
     });
-
-    // console.log("Delete User - ", deleteUser);
 
     return res.status(200).json({
       success: true,

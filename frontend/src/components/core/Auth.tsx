@@ -23,10 +23,7 @@ export const AuthForm = ({ type }: typeProps) => {
   });
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -35,8 +32,6 @@ export const AuthForm = ({ type }: typeProps) => {
 
   const submitHandlers = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-
     const { name, email, password } = formData;
 
     if (type === "signup") {
@@ -47,14 +42,14 @@ export const AuthForm = ({ type }: typeProps) => {
   };
 
   return (
-    <div className="bg-[#f7dcdc] w-[450px] mx-auto mt-16 rounded-md shadow-2xs shadow-gray-700">
-      <h1 className="text-center text-black px-2 py-4 text-xl font-semibold font-mono">
-        Hello Welcome Your Authentication
+    <div className="bg-[#f7dcdc] w-[90%] max-w-md mx-auto mt-16 p-6 rounded-md shadow-md shadow-gray-700">
+      <h1 className="text-center text-black text-xl font-semibold font-mono mb-6">
+        Hello, Welcome to Authentication
       </h1>
 
-      <form onSubmit={submitHandlers} className="flex flex-col gap-7 px-5 py-7">
+      <form onSubmit={submitHandlers} className="flex flex-col gap-6">
         {type !== "login" && (
-          <FormControl>
+          <FormControl fullWidth>
             <FormLabel>Name</FormLabel>
             <Input
               name="name"
@@ -65,7 +60,7 @@ export const AuthForm = ({ type }: typeProps) => {
           </FormControl>
         )}
 
-        <FormControl>
+        <FormControl fullWidth>
           <FormLabel>Email</FormLabel>
           <Input
             name="email"
@@ -75,7 +70,7 @@ export const AuthForm = ({ type }: typeProps) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl fullWidth>
           <FormLabel>Password</FormLabel>
           <Input
             name="password"
@@ -86,15 +81,21 @@ export const AuthForm = ({ type }: typeProps) => {
           />
         </FormControl>
 
-        <Button type="submit"> {type === "signup" ? "Signup" : "Login"}</Button>
+        <Button
+          type="submit"
+          variant="contained"
+          className="!bg-black !text-white hover:!bg-gray-800"
+        >
+          {type === "signup" ? "Signup" : "Login"}
+        </Button>
 
-        <div className="text-center text-black text-[14px] font-semibold">
+        <div className="text-center text-black text-sm font-semibold">
           <Link to={type === "signup" ? "/login" : "/signup"}>
             {type === "signup"
               ? "Already have an account?"
               : "Don't have an account?"}{" "}
-            <span className="text-blue-500">
-              {type == "signup" ? "Login" : "Singup"}
+            <span className="text-blue-500 underline">
+              {type === "signup" ? "Login" : "Signup"}
             </span>
           </Link>
         </div>

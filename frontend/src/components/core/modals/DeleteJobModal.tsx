@@ -3,10 +3,10 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useSpring, animated } from "@react-spring/web";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../redux/store";
-import { deleteuser, logout } from "../../../services/opreation/authAPI";
 import { useNavigate } from "react-router-dom";
+import { deleteJob } from "../../../services/opreation/jobAPI";
 
 interface FadeProps {
   children: React.ReactElement<any>;
@@ -66,29 +66,29 @@ const style = {
 };
 
 interface CloseModal {
+  jobId : string,
   onclose: () => void;
 }
 
-export default function DeleteProfileModal({ onclose }: CloseModal) {
-  const token = useSelector((state: any) => state.auth.token);
+export default function DeleteJobModal({ onclose, jobId }: CloseModal) {
+
+    console.log("Id - ", jobId);
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const [loading, setLoading] = React.useState(false);
 
-  const deleteuserHandler = async () => {
+  const deleteJobHandler = async () => {
     setLoading(true);
-    if (token) {
-    await dispatch(deleteuser({token, navigate}));
-    await dispatch(logout(navigate));
+    if (jobId) {
+        await dispatch(deleteJob({jobId, navigate}));
     }
     setLoading(false);
   };
 
-  if(loading){
-    return (
-        <div className="loader w-9/12 mx-auto mt-4"></div>
-    )
+  if (loading) {
+    return <div className="loader w-9/12 mx-auto mt-4"></div>;
   }
 
   return (
@@ -109,13 +109,8 @@ export default function DeleteProfileModal({ onclose }: CloseModal) {
         <Fade in={true} onClick={onclose}>
           <Box sx={style} onClick={(e) => e.stopPropagation()}>
             <div className="flex flex-col gap-4 items-center justify-center">
-              <p className="text-xl font-mono">
-                Are you Sure Delete Our Account?
-              </p>
-              <button
-                onClick={deleteuserHandler}
-                className=" bg-red-800 px-3 py-2 text-xl font-semibold capitalize rounded-md text-white"
-              >
+              <p className="text-xl font-mono">Are you Sure Delete Our Job?</p>
+              <button onClick={deleteJobHandler} className=" bg-red-800 px-3 py-2 text-xl font-semibold capitalize rounded-md text-white">
                 Yes
               </button>
             </div>

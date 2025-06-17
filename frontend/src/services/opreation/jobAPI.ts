@@ -83,6 +83,8 @@ export const updatejob = ({
   status,
   role,
   notes,
+  navigate,
+  token
 }: UpdateJobParam) => {
   return async (dispatch: AppDispatch) => {
     const toastId = toast.loading("Updating job...");
@@ -101,18 +103,22 @@ export const updatejob = ({
         url: `${UPDATE_JOB_API}/${jobId}`,
         data: validatedData,
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
 
-      dispatch(updatejob(response.data.data));
+      console.log("Inside Update Job - ", response.data);
+      dispatch(updatejob(response.data));
       toast.dismiss(toastId);
       toast.success("Job Updated Successfully");
+      navigate("/home")
     } catch (error: any) {
       toast.error(error?.message || "Failed to update job", { toastId });
+      toast.dismiss(toastId);
     } finally {
       dispatch(setLoading(false));
+      toast.dismiss(toastId);
     }
   };
 };
@@ -160,7 +166,7 @@ export const getJobDetails = (jobId: string) => {
         },
       });
 
-      dispatch(setSelectedJob(response.data.data));
+      dispatch(setSelectedJob(response.data));
       return response.data || null;
     } catch (error: any) {
       toast.error("Failed to get job details");
@@ -172,7 +178,13 @@ export const getJobDetails = (jobId: string) => {
 };
 
 // ---------- Delete Job ----------
-export const deleteJob = (jobId: string) => {
+
+interface jobDelete {
+  jobId : string,
+  navigate : (path : string) => void
+}
+
+export const deleteJob = ({jobId, navigate} : jobDelete) => {
   return async (dispatch: AppDispatch) => {
     const toastId = toast.loading("Deleting job...");
     dispatch(setLoading(true));
@@ -185,9 +197,11 @@ export const deleteJob = (jobId: string) => {
           Authorization: `Bearer ${getToken()}`,
         },
       });
-      dispatch(deleteJob(response.data.data));
+
+      console.log(response);
       toast.dismiss(toastId);
       toast.success("Job Deleted Successfully");
+      navigate("/home");
     } catch (error: any) {
       toast.error("Failed to delete job");
       toast.dismiss(toastId);

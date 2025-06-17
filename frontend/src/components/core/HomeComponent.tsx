@@ -14,15 +14,15 @@ export const HomeJobsComponents = ({ jobs }: { jobs: any[] }) => {
   return (
     <div className="w-full">
       {/* Tabs */}
-      <div className="flex gap-4 mb-4 border-b bg-gray-800 p-3 rounded-tr-lg rounded-tl-lg">
+      <div className="flex flex-wrap gap-2 sm:gap-4 mb-4 border-b bg-gray-800 p-3 rounded-tr-lg rounded-tl-lg overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 text-[16px] font-medium border-b-2 ${
+            className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-medium border-b-2 transition-colors ${
               activeTab === tab
-                ? "border-blue-500 text-blue-600"
-                : "border-transparent text-gray-400"
+                ? "border-blue-500 text-blue-500"
+                : "border-transparent text-gray-400 hover:text-white"
             }`}
           >
             {tab}
@@ -31,29 +31,38 @@ export const HomeJobsComponents = ({ jobs }: { jobs: any[] }) => {
       </div>
 
       {/* Job List */}
-      <div className="space-y-2">
+      <div className="space-y-3 sm:space-y-4">
         {filteredJobs.length === 0 ? (
-          <p className="text-gray-400">No jobs found</p>
+          <p className="text-gray-400 text-center">No jobs found</p>
         ) : (
           filteredJobs.map((job, idx) => (
             <div
               key={idx}
-              className="p-5 bg-[#272727] rounded shadow flex justify-between"
+              className="p-4 sm:p-5 bg-[#272727] rounded-md shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
             >
+              {/* Job Info */}
               <div>
-                <h3 className="font-bold">{job.role}</h3>
-                <p className="text-lg text-gray-600">{job.company}</p>
+                <h3 className="font-bold text-base sm:text-lg text-white">{job.role}</h3>
+                <p className="text-sm sm:text-base text-gray-400">{job.company}</p>
               </div>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <p className="text-lg text-blue-500 font-medium">
+
+              {/* Status and Date */}
+              <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto">
+                <div className="text-right">
+                  <p className="text-sm sm:text-base text-blue-400 font-medium">
                     {job.status}
                   </p>
-                  <p className="text-sm">{formatDate(job.appliedDate)}</p>
+                  <p className="text-xs sm:text-sm text-gray-300">
+                    {formatDate(job.appliedDate)}
+                  </p>
                 </div>
-                
-                <Link className="text-xl text-gray-400" to="/home/job-details">
-                 <HiBookOpen />
+
+                {/* Link */}
+                <Link
+                  className="text-xl text-gray-300 hover:text-white transition"
+                  to={`/home/job-details/${job.id}`}
+                >
+                  <HiBookOpen />
                 </Link>
               </div>
             </div>

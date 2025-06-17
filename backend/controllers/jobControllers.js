@@ -23,7 +23,6 @@ const addJob = async (req, res) => {
     const { company, role, status, notes } = parsed.data;
 
     const userId = req.user.id;
-    // console.log(userId);
 
     if (!userId) {
       return res.status(401).json({
@@ -87,6 +86,7 @@ const addJob = async (req, res) => {
       message: "Job Create SuccessFully...",
       data: createJob,
     });
+
   } catch (error) {
     console.log(error);
     return res.status(502).json({
@@ -112,7 +112,6 @@ const editJob = async (req, res) => {
 
     // find JobId from parameter
     const jobId = req.params.id;
-    console.log("Job Id - ", jobId);
 
     const updateJob = await prisma.job.update({
       where: {
@@ -134,7 +133,6 @@ const editJob = async (req, res) => {
     }
 
     const userId = req.user.id;
-    // console.log(userId);
 
     if (!userId) {
       return res.status(401).json({
@@ -251,18 +249,17 @@ const deleteJob = async (req, res) => {
 
     const findJobDetails = await prisma.job.findFirst({
       where: {
-        id: Number(jobId),
+        id: parseInt(jobId),
       },
     });
 
     const deleteJobs = await prisma.job.delete({
       where: {
-        id: Number(jobId),
+        id: parseInt(jobId),
       },
     });
 
     const userId = req.user.id;
-    // console.log(userId);
 
     if (!userId) {
       return res.status(401).json({
@@ -301,6 +298,8 @@ const deleteJob = async (req, res) => {
       success: true,
       message: "Job Remove Successfully",
     });
+
+
   } catch (error) {
     console.log(error);
     return res.status(503).json({

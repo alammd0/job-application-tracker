@@ -1,8 +1,11 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export const IntroductionPage = () => {
+  const token = useSelector((state: any) => state.auth.token);
+
   return (
-    <div className="w-9/12 mx-auto pt-5 pb-5 relative">
+    <div className="w-9/12 mx-auto pt-5 md:pb-5  pb-10 mb-8 relative">
       <div className="flex flex-col gap-10">
         <div className="bg-[#272727] px-5 py-7 text-white flex flex-col gap-4 rounded-md shadow-md shadow-gray-800">
           <h2 className=" text-xl font-semibold font-mono">
@@ -19,7 +22,10 @@ export const IntroductionPage = () => {
         </div>
 
         <div className="flex flex-col gap-3 ">
-          <p className="text-xl font-semibold font-mono"> Tech Stack: (Used to Build Project)</p>
+          <p className="text-xl font-semibold font-mono">
+            {" "}
+            Tech Stack: (Used to Build Project)
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[#272727] px-5 py-7 text-white rounded-md">
             {/* Frontend Tech Stack */}
@@ -66,7 +72,9 @@ export const IntroductionPage = () => {
             </div>
 
             <div>
-              <p className="text-lg font-semibold mb-2 underline">Project Deployment: </p>
+              <p className="text-lg font-semibold mb-2 underline">
+                Project Deployment:{" "}
+              </p>
               <ul className="list-disc list-inside space-y-1">
                 <li>Render for Backend</li>
                 <li>Vercel for frontend</li>
@@ -75,9 +83,19 @@ export const IntroductionPage = () => {
           </div>
         </div>
 
-        <button className="bg-[#272727] px-3 py-4 w-fit rounded-xl hover:scale-105 transition-all duration-200 text-[16px] font-semibold">
-            <Link to="https://github.com/alammd0/job-application-tracker">Project Github Repositories</Link>
-        </button>
+        <div className="flex justify-between">
+          <button className="bg-[#272727] px-3 py-4 w-fit rounded-xl hover:scale-105 transition-all duration-200 text-[16px] font-semibold">
+            <Link to="https://github.com/alammd0/job-application-tracker">
+              Project Github Repositories
+            </Link>
+          </button>
+
+          {token && (
+            <button className="bg-[#272727] px-3 py-4 w-fit rounded-xl hover:scale-105 transition-all duration-200 text-[16px] font-semibold">
+              <Link to="/home">Go to Home</Link>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

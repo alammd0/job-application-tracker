@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { MdOutlineMenuBook } from "react-icons/md";
 import { useState } from "react";
-import ProfileModal from "../core/modals/ProfileModal";
+import MenuModal from "../core/modals/MenuModal";
 
 export const NavBar = () => {
   const token = useSelector((state: any) => state.auth.token);
@@ -44,7 +44,7 @@ export const NavBar = () => {
         </div>
       </div>
 
-      {modal && <ProfileModal onclose={closeModal} />}
+      {modal && <MenuModal onclose={closeModal} />}
     </div>
   );
 };
