@@ -10,6 +10,7 @@ interface SignupParam {
   name: string;
   email: string;
   password: string;
+  navigate: (path: string) => void;
 }
 
 interface LoginParam {
@@ -19,7 +20,7 @@ interface LoginParam {
 }
 
 // ------------------ SIGNUP ------------------
-export const signup = ({ name, email, password }: SignupParam) => {
+export const signup = ({ name, email, password, navigate }: SignupParam) => {
   return async (dispatch: AppDispatch) => {
     const toastId = toast.loading("Please wait...");
     dispatch(setLoading(true));
@@ -39,8 +40,9 @@ export const signup = ({ name, email, password }: SignupParam) => {
       }
 
       dispatch(setUser(response.data.data));
-      toast.dismiss(toastId)
+      toast.dismiss(toastId);
       toast.success("Signup successful toastId");
+      navigate("/login");
     } catch (error: any) {
       console.error("Signup Error:", error?.message || error);
       toast.dismiss(toastId);
@@ -67,11 +69,13 @@ export const login = ({ email, password, navigate }: LoginParam) => {
         },
       });
 
+      // console.log("Login response - ", response.token);
+
       if (!response || !response.data) {
         throw new Error("Login failed. No response data.");
       }
 
-      const token = response.data.token;
+      const token = response.token;
       const user = response.data.data;
 
       // Save to Redux
@@ -122,7 +126,6 @@ export const getuser = () => {
       toast.dismiss(toastId);
       toast.success("User data fetched");
       return response.data;
-
     } catch (error: any) {
       console.error("Get User Error:", error?.message || error);
       toast.dismiss(toastId);
@@ -130,5 +133,17 @@ export const getuser = () => {
     } finally {
       dispatch(setLoading(false));
     }
+  };
+};
+
+// ------------------- LOGOUT User --------------
+export const logout = (navigate: any) => {
+  return async (dispatch: any) => {
+    dispatch(setUser(null));
+    dispatch(setToken(null));
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    toast.success("Logout Successful");
+    navigate("/");
   };
 };

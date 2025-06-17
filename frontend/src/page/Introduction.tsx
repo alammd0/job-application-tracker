@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const HomePage = () => {
+export const IntroductionPage = () => {
   return (
     <div className="w-9/12 mx-auto pt-5 pb-5 relative">
       <div className="flex flex-col gap-10">

@@ -22,9 +22,11 @@ interface CreateJobParam {
   status: string;
   role: string;
   notes: string;
+  navigate : (path : string) => void,
+  token : string
 }
 
-export const createjob = ({ company, status, role, notes }: CreateJobParam) => {
+export const createjob = ({ company, status, role, notes, navigate, token}: CreateJobParam) => {
   return async (dispatch: AppDispatch) => {
     const toastId = toast.loading("Creating job...");
     dispatch(setLoading(true));
@@ -42,7 +44,7 @@ export const createjob = ({ company, status, role, notes }: CreateJobParam) => {
         url: CREATE_JOB_API,
         data: validatedData,
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
@@ -51,6 +53,7 @@ export const createjob = ({ company, status, role, notes }: CreateJobParam) => {
       dispatch(addJob(response.data.data));
       toast.dismiss(toastId);
       toast.success("Job Created Successfully");
+      navigate("/dashboard/view-jobs")
     } catch (error: any) {
       toast.error(error?.message || "Failed to create job");
       toast.dismiss(toastId);

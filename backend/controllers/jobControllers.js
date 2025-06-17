@@ -2,7 +2,9 @@ const prisma = require("../utils/db");
 const { createJobSchema } = require("@mkadevs/zodvalidation");
 const { JobgenerateEmailTemplate } = require("../utils/templates/jonTemplate");
 const { sendMail } = require("../utils/sendEmail");
-const { JobRemoveEmailTemplate } = require("../utils/templates/jobremovetemplate");
+const {
+  JobRemoveEmailTemplate,
+} = require("../utils/templates/jobremovetemplate");
 
 const updateJobSchema = createJobSchema.partial();
 
@@ -50,6 +52,17 @@ const addJob = async (req, res) => {
         status: status,
         note: notes,
         userId: user.id,
+      },
+    });
+
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        jobs: {
+          connect: { id: createJob.id },
+        },
       },
     });
 
@@ -243,10 +256,10 @@ const deleteJob = async (req, res) => {
     });
 
     const deleteJobs = await prisma.job.delete({
-        where : {
-            id : Number(jobId)
-        }
-    })
+      where: {
+        id: Number(jobId),
+      },
+    });
 
     const userId = req.user.id;
     // console.log(userId);
@@ -275,7 +288,7 @@ const deleteJob = async (req, res) => {
     const deleteHTMLtemplate = JobRemoveEmailTemplate({
       name: user.name,
       jobRole: deleteJobs.role,
-      company: deleteJobs.company
+      company: deleteJobs.company,
     });
 
     await sendMail({
@@ -285,10 +298,9 @@ const deleteJob = async (req, res) => {
     });
 
     return res.status(200).json({
-        success : true,
-        message : "Job Remove Successfully"
-    })
-
+      success: true,
+      message: "Job Remove Successfully",
+    });
   } catch (error) {
     console.log(error);
     return res.status(503).json({
