@@ -41,7 +41,7 @@ const signup = async (req, res) => {
 
     // hashed The password
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("Hased password...", hashedPassword);
+    // console.log("Hased password...", hashedPassword);
 
     // create user
     const newUser = await prisma.user.create({
@@ -83,7 +83,7 @@ const login = async (req, res) => {
   try {
     const parsed = loginSchema.safeParse(req.body);
 
-    console.log("Zod - ", parsed);
+    // console.log("Zod - ", parsed);
 
     if (!parsed.success) {
       return res.status(404).json({
@@ -109,7 +109,7 @@ const login = async (req, res) => {
       });
     }
 
-    console.log("user exits", existingUser);
+    // console.log("user exits", existingUser);
 
     // here compare password
     const comparePassword = await bcrypt.compare(
@@ -139,7 +139,7 @@ const login = async (req, res) => {
 
     const HTMLtemplate = LoginTemplate({
       name: existingUser.name,
-      loginTime : existingUser.createAt,
+      loginTime: existingUser.createAt,
     });
 
     await sendMail({
@@ -161,7 +161,6 @@ const login = async (req, res) => {
         data: existingUser,
         token: token,
       });
-
   } catch (error) {
     console.log(error);
     return res.status(503).json({
@@ -175,7 +174,7 @@ const login = async (req, res) => {
 const getuser = async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log(userId);
+    // console.log(userId);
 
     if (!userId) {
       return res.status(401).json({
@@ -218,4 +217,44 @@ const getuser = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, getuser };
+const deleteUser = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    // console.log("user id inside delete controllers - ", userId);
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "userId not fetch...",
+      });
+    }
+
+    const deleteproperty = await prisma.job.deleteMany({
+      where: {
+        userId: userId,
+      },
+    });
+
+    // console.log("Delete Property - ", deleteproperty);
+
+    const deleteuser = await prisma.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+
+    // console.log("Delete User - ", deleteUser);
+
+    return res.status(200).json({
+      success: true,
+      message: "User Delete successfully...",
+    });
+  } catch (err) {
+    return res.status(502).json({
+      success: false,
+      message: "User deleting error...",
+    });
+  }
+};
+
+module.exports = { signup, login, getuser, deleteUser };

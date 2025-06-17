@@ -8,6 +8,7 @@ import DashboardLayout from "./page/DashboardLayout";
 import { CreateJob } from "./page/CreateJob";
 import { ViewJobs } from "./page/ViewJob";
 import { Profile } from "./page/Profile";
+import { HomPage } from "./page/Home";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<IntroductionPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/home" element = {<HomPage /> } />
 
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route path="create-job" element={< CreateJob />} />

@@ -5,6 +5,7 @@ export const authEndpoints = {
   SIGNUP_API: `${BACKEND_URL}/api/v1/auth/signup`,
   LOGIN_APi: `${BACKEND_URL}/api/v1/auth/login`,
   GETUSER_API: `${BACKEND_URL}/api/v1/auth/get-user`,
+  DELETE_USER_API : `${BACKEND_URL}/api/v1/auth/delete-user`
 };
 
 // Job End Points

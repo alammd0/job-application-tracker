@@ -17,10 +17,7 @@ export const CreateJob = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const token = useSelector((state: any) => state.auth.token);
-  console.log("Token inside create jobs - ", token)
-
-
-
+  
   const {
     register,
     handleSubmit,

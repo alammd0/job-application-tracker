@@ -4,7 +4,7 @@ import { jobEndpoints } from "../apis";
 import { createJobSchema } from "@mkadevs/zodvalidation";
 import { apiconnector } from "../apiconnector";
 import { setLoading } from "../../redux/slices/authSlice";
-import { addJob, setJobs, setSelectedJob } from "../../redux/slices/JobSlice";
+import { setJobs, setSelectedJob } from "../../redux/slices/JobSlice";
 
 const {
   CREATE_JOB_API,
@@ -22,11 +22,18 @@ interface CreateJobParam {
   status: string;
   role: string;
   notes: string;
-  navigate : (path : string) => void,
-  token : string
+  navigate: (path: string) => void;
+  token: string;
 }
 
-export const createjob = ({ company, status, role, notes, navigate, token}: CreateJobParam) => {
+export const createjob = ({
+  company,
+  status,
+  role,
+  notes,
+  navigate,
+  token,
+}: CreateJobParam) => {
   return async (dispatch: AppDispatch) => {
     const toastId = toast.loading("Creating job...");
     dispatch(setLoading(true));
@@ -49,11 +56,13 @@ export const createjob = ({ company, status, role, notes, navigate, token}: Crea
         },
       });
 
-      console.log(response);
-      dispatch(addJob(response.data.data));
+      console.log(response.data);
+
+      dispatch(setJobs(response.data));
+
       toast.dismiss(toastId);
       toast.success("Job Created Successfully");
-      navigate("/dashboard/view-jobs")
+      navigate("/dashboard/view-jobs");
     } catch (error: any) {
       toast.error(error?.message || "Failed to create job");
       toast.dismiss(toastId);
@@ -96,6 +105,7 @@ export const updatejob = ({
           "Content-Type": "application/json",
         },
       });
+
       dispatch(updatejob(response.data.data));
       toast.dismiss(toastId);
       toast.success("Job Updated Successfully");
@@ -107,21 +117,26 @@ export const updatejob = ({
   };
 };
 
+
 // ---------- Get All Jobs ----------
-export const getAllJobs = () => {
+export const getAllJobs = ({ token }: { token: string }) => {
   return async (dispatch: AppDispatch) => {
+
+    // console.log(token);
     dispatch(setLoading(true));
     try {
+      // console.log(token);
       const response = await apiconnector({
         method: "GET",
         url: GET_ALL_JOB_API,
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      dispatch(setJobs(response.data.data));
-      return response.data || [];
+
+      dispatch(setJobs(response));
+      return response;
     } catch (error: any) {
       toast.error("Failed to fetch jobs");
       return [];
@@ -130,6 +145,7 @@ export const getAllJobs = () => {
     }
   };
 };
+
 
 // ---------- Get Job Details ----------
 export const getJobDetails = (jobId: string) => {
@@ -180,4 +196,3 @@ export const deleteJob = (jobId: string) => {
     }
   };
 };
-

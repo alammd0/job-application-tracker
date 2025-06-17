@@ -1,5 +1,5 @@
 const express = require("express");
-const {signup, login, getuser, } = require("../controllers/authControllers");
+const {signup, login, getuser, deleteUser, } = require("../controllers/authControllers");
 const { middleware } = require("../middleware/middleware")
 
 const router = express.Router();
@@ -8,5 +8,6 @@ const router = express.Router();
 router.post("/signup", signup);
 router.post("/login", login);
 router.get("/get-user", middleware, getuser)
+router.delete("/delete-user", middleware, deleteUser)
 
 module.exports = router;

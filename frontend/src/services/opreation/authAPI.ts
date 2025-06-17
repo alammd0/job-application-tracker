@@ -3,8 +3,9 @@ import { apiconnector } from "../apiconnector";
 import { authEndpoints } from "../apis";
 import { setUser, setToken, setLoading } from "../../redux/slices/authSlice";
 import { toast } from "react-toastify";
+import { setJobs } from "../../redux/slices/JobSlice";
 
-const { SIGNUP_API, LOGIN_APi, GETUSER_API } = authEndpoints;
+const { SIGNUP_API, LOGIN_APi, GETUSER_API, DELETE_USER_API } = authEndpoints;
 
 interface SignupParam {
   name: string;
@@ -98,18 +99,12 @@ export const login = ({ email, password, navigate }: LoginParam) => {
 };
 
 // ------------------ GET USER ------------------
-export const getuser = () => {
+export const getuser = ({ token }: { token: string }) => {
   return async (dispatch: AppDispatch) => {
     const toastId = toast.loading("Fetching user...");
     dispatch(setLoading(true));
 
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        throw new Error("Token not found");
-      }
-
       const response = await apiconnector({
         method: "GET",
         url: GETUSER_API,
@@ -123,15 +118,14 @@ export const getuser = () => {
       }
 
       dispatch(setUser(response.data));
-      toast.dismiss(toastId);
       toast.success("User data fetched");
       return response.data;
     } catch (error: any) {
       console.error("Get User Error:", error?.message || error);
-      toast.dismiss(toastId);
       toast.error("Failed to get user");
     } finally {
       dispatch(setLoading(false));
+      toast.dismiss(toastId);
     }
   };
 };
@@ -145,5 +139,50 @@ export const logout = (navigate: any) => {
     localStorage.removeItem("user");
     toast.success("Logout Successful");
     navigate("/");
+  };
+};
+
+// ------------------ DELETE USER ---------------
+
+interface deleteProps {
+  token : string,
+  navigate : (path : string) => void
+}
+
+export const deleteuser = ({ token, navigate}: deleteProps) => {
+  return async (dispatch: AppDispatch) => {
+    const toastId = toast.loading("Please wait...");
+    dispatch(setLoading(true));
+
+    try {
+      const response = await apiconnector({
+        method: "DELETE",
+        url: DELETE_USER_API,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log("Delete user - ", response);
+
+      if (!response) {
+        throw new Error("User deletion failed");
+      }
+
+      toast.success("User deleted successfully");
+
+      // Optional: Logout user or reset user state
+      dispatch(setUser(null));
+      dispatch(setJobs([]));
+      navigate("/")
+
+      return response.data;
+    } catch (err: any) {
+      console.error("Delete User Error:", err?.message || err);
+      toast.error("Failed to delete user");
+    } finally {
+      dispatch(setLoading(false));
+      toast.dismiss(toastId);
+    }
   };
 };

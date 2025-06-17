@@ -1,13 +1,12 @@
-
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const middleware = async (req, res, next) => {
   try {
     const token =
-      req.body.token ||
+      req.body?.token ||
       req.header("Authorization")?.replace("Bearer ", "") ||
-      req.cookies.token;
+      req.cookies?.token;
 
     if (!token) {
       return res.status(401).json({
@@ -41,6 +40,5 @@ const middleware = async (req, res, next) => {
     });
   }
 };
-
 
 module.exports = { middleware };
