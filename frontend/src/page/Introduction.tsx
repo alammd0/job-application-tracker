@@ -14,10 +14,11 @@ export const IntroductionPage = () => {
           </h2>
 
           <div className="text-[16px] font-normal">
-            <b>Objective:</b> <br /> Build a full-stack Job Application Tracker
-            that allows users to manage and track their job applications,
-            statuses, and notes with real-time notifications and role-based
-            access.
+             <b> Project Description </b> <br /> <br /> Job Application Tracker is a web-based
+            application designed to streamline and simplify the job search
+            process for candidates. It gives users a centralized platform to
+            track their job applications, manage statuses, and stay organized
+            throughout their job-hunting journey.
           </div>
         </div>
 
