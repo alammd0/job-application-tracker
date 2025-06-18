@@ -14,7 +14,7 @@ export const IntroductionPage = () => {
           </h2>
 
           <div className="text-[16px] font-normal">
-             <b> Project Description </b> <br /> <br /> Job Application Tracker is a web-based
+             <b> Project Description </b> <br /> Job Application Tracker is a web-based
             application designed to streamline and simplify the job search
             process for candidates. It gives users a centralized platform to
             track their job applications, manage statuses, and stay organized
