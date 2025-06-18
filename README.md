@@ -83,8 +83,9 @@ RESTful APIs for all operations related to users and jobs. Secured using JWT mid
 
 ## 🚀 How to Use This Project
 
-### 1. **Clone the Repository**
+
 ```bash
+## Clone the Repository
 git clone https://github.com/alammd0/job-application-tracker.git
 cd job-application-tracker
 
