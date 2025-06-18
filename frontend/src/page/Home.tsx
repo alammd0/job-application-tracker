@@ -78,6 +78,7 @@ export const HomPage = () => {
 
       {/* Footer */}
       <FooterPage />
+      
     </div>
   );
 };

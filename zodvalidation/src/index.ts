@@ -22,7 +22,6 @@ export const createJobSchema = z.object({
   notes : z.string()
 });
 
-
 // exports all schema 
 export type SignupInput = z.infer<typeof signupSchema>
 export type LoginInput = z.infer<typeof loginSchema> 

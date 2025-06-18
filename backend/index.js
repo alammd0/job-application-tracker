@@ -23,7 +23,6 @@ app.listen(PORT, () => {
   console.log(`App Running at : ${PORT}`);
 });
 
-
 app.get("/", (req, res) => {
   res.send("Backend is running successfully!");
 });
