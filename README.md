@@ -77,7 +77,7 @@ RESTful APIs for all operations related to users and jobs. Secured using JWT mid
 - `PUT /update-job/:id` – Update job entry
 - `GET /get-all-jobs` – Get all jobs by user
 - `GET /get-job-details/:id` – Get job details by ID
-- `DELETE /delete-job/:id` – Delete job and update user
+- `DELETE /delete-job/:id` – Delete the job and update the user
 
 ---
 
@@ -87,6 +87,42 @@ RESTful APIs for all operations related to users and jobs. Secured using JWT mid
 ```bash
 git clone https://github.com/alammd0/job-application-tracker.git
 cd job-application-tracker
----
 
 ## Set Up Environment Variables
+- /backend/.env
+PORT_NO=4000
+DATABASE_URL= ""
+
+JWT_SECRET= "khalid"
+NODE_ENV= production
+PORT = 3000
+HOST_NAME = smtp.gmail.com
+MAIL_USER = 
+MAIL_PASS =
+
+- Install Dependencies
+cd backend
+npm install
+
+cd  frontend
+npm install
+
+
+- Generate Prisma Client and Apply Migrations
+cd backend 
+npx prisma generate
+npx prisma migrate dev --name init
+
+--- Run the Application
+cd backend
+npm run dev   # if using nodemon
+
+cd frontend
+npm run dev
+
+--- Live Demo & Repositories
+🌍 Live URL: https://jta-ebon-nine.vercel.app/
+
+📂 GitHub Repo: https://github.com/alammd0/job-application-tracker
+
+
