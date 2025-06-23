@@ -1,129 +1,130 @@
-# 🧾 Job Application Tracker (JAT)
-*A Website For Tracking Jobs*
 
-📅 **Date:** 17-06-2025  
-👤 **Created by:** Md Khalid Alam
+# Job Application Tracker (JAT)
 
----
+Job Application Tracker is a web-based application designed to streamline and simplify the job search process for candidates. It gives users a centralized platform to track their job applications, manage statuses, and stay organized throughout their job-hunting journey.
 
-## 📌 Project Description
 
-**Job Application Tracker (JAT)** is a web-based application designed to streamline and simplify the job search process for candidates. It provides users with a centralized platform to track job applications, manage statuses, and stay organized throughout their job-hunting journey.
+## Authors
 
----
+- [Md Khalid Alam](https://github.com/alammd0?tab=repositories)
 
-## 🎯 Platform Goals
 
-- Provide a user-friendly and efficient interface for tracking job applications.
-- Enable users to **add**, **update**, **delete**, and **filter** job entries based on status (`Applied`, `Interview`, `Offer`, `Rejected`).
-- Ensure secure user access and authentication to manage personal job data.
+## Tech Stack
 
----
+**Client:** React.js(with Typescript), Redux Toolkit, React Router Dom, React Toastify, Tailwind CSS, Axios for API Request, React Icons
 
-## 🧑‍💻 Frontend Tech Stack
+**Server:** Node with Express.js, JavaScript, JWT, ZoD, Nodemailer. Bcrypt
 
-- **React.js** (with TypeScript)
-- **Redux Toolkit** for state management
-- **React Router Dom** for routing
-- **React Toastify** for toast notifications
-- **Tailwind CSS** or custom styling
-- **Axios** for making API requests
-- **React Icons** for UI icons
+**Database:** Postgres, ORM
 
-### ✨ Frontend Features
 
-- User authentication (Signup/Login)
-- Form-based job creation
-- Job filtering by status
-- Dashboard to manage all jobs
+## API Reference
 
----
+#### Post API
 
-## 🔐 Backend Tech Stack
+```http
+  POST /api/v1/auth/signup
+  POST /api/v1/auth/login
+  POST /api/v1/job/create
+```
 
-- **Node.js** with **Express.js**
-- **JavaScript**
-- **JWT** for secure authentication
-- **Zod** for schema validation (published as NPM package)
-- **Nodemailer** for sending email notifications
-- **bcryptjs** for password hashing
-- Business logic for user and job CRUD operations
+#### Get API
 
----
+```http
+  GET /api/v1/auth/ger-user/{id}
+  GET /api/v1/job/update-job/{id}
+  GET /api/v1/job/get-all-jobs
+```
 
-## 🗃️ Database Design
+#### Delete API
 
-- **PostgreSQL** (hosted on Render)
-- **Prisma** ORM for database operations
+```http
+  DELETE /api/v1/auth/delete-user/{id}
+  DELETE /api/v1/job/delete-job/{id}
+```
 
-### 📂 Core Models
+#### Update API
 
-- **User**: Stores credentials
-- **Job**: Stores company, role, applied date, notes, status, etc.
+```http
+  PUT /api/v1/job/update-job/{id}
+```
 
----
 
-## 🔗 API Design
 
-RESTful APIs for all operations related to users and jobs. Secured using JWT middleware.
+## Screenshots
 
-### 📡 Sample Endpoints
+![App Screenshot](./frontend/public/Demo01.png)
 
-- `POST /signup` – Register a new user
-- `POST /login` – Login user
-- `GET /get-user/:id` – Get user info by ID
-- `DELETE /delete-user/:id` – Delete user & related jobs
-- `POST /create-job` – Create a new job
-- `PUT /update-job/:id` – Update job entry
-- `GET /get-all-jobs` – Get all jobs by user
-- `GET /get-job-details/:id` – Get job details by ID
-- `DELETE /delete-job/:id` – Delete the job and update the user
+![App Screenshot](./frontend/public/Demo2.png)
 
----
 
-## 🚀 How to Use This Project
+## Environment Variables
 
+To run this project, you will need to add the following environment variables to your .env file
+
+`DATABASE_URL=""` add your own DATABASE_URL
+
+`JWT_SECRET= "khalid"`
+
+`NODE_ENV= production`
+
+`PORT = 3000`
+
+`HOST_NAME = smtp.gmail.com`
+
+`MAIL_USER = mdkhalidalam001@gmail.com`
+
+`MAIL_PASS = ` find your password add here
+## Run Locally
+
+Clone the project
 
 ```bash
-## Clone the Repository
-git clone https://github.com/alammd0/job-application-tracker.git
-cd job-application-tracker
+  https://github.com/alammd0/job-application-tracker.git
+```
 
-## Set Up Environment Variables
-- /backend/.env
-PORT_NO=4000
-DATABASE_URL= ""
+Go to the project directory
 
-JWT_SECRET= "khalid"
-NODE_ENV= production
-PORT = 3000
-HOST_NAME = smtp.gmail.com
-MAIL_USER = 
-MAIL_PASS =
+```bash
+  cd job-application-tracker
+```
 
-- Install Dependencies
-cd backend
-npm install
+Install dependencies
 
-cd  frontend
-npm install
+```bash
+  npm install
+```
 
-
-- Generate Prisma Client and Apply Migrations
+Generate Prisma Client and Apply Migrations
+```bash
 cd backend 
 npx prisma generate
 npx prisma migrate dev --name init
+```
 
---- Run the Application
-cd backend
-npm run dev   # if using nodemon
+Start the backend
 
-cd frontend
-npm run dev
+```bash
+  cd backend
+  npm run start
+```
 
---- Live Demo & Repositories
-🌍 Live URL: https://jta-ebon-nine.vercel.app/
+Start the frontend
 
-📂 GitHub Repo: https://github.com/alammd0/job-application-tracker
+```bash
+  cd frontend
+  npm run start
+```
+
+## Demo
+
+[Backend](https://job-application-tracker-ok5a.onrender.com) [Live](https://jta-ebon-nine.vercel.app/) [Video](https://youtu.be/6dWMFHT0S9c)
+
+```bash
+  npm run test
+```
 
 
+## Documentation
+
+[Documentation](https://docs.google.com/document/d/1T7XDZ9aTuMrEewkJQKqONFg5bxPEkqmqpJVPY8OZeT0/edit?usp=sharing)
