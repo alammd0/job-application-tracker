@@ -120,11 +120,6 @@ Start the frontend
 
 [Backend](https://job-application-tracker-ok5a.onrender.com) [Live](https://jta-ebon-nine.vercel.app/) [Video](https://youtu.be/6dWMFHT0S9c)
 
-```bash
-  npm run test
-```
-
-
 ## Documentation
 
 [Documentation](https://docs.google.com/document/d/1T7XDZ9aTuMrEewkJQKqONFg5bxPEkqmqpJVPY8OZeT0/edit?usp=sharing)
